@@ -91,3 +91,18 @@ function fff({ a, b = 0 } = { a: "" }): void {
 fff({ a: "yes" }); // ok, default b = 0
 fff(); // ok, default to { a: "" }, which then defaults b = 0
 // fff({}); // error, 'a' is required if you supply an argument
+
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { ...defaults, food: "rich" };
+console.log(`search.food:${search.food}`);
+
+search = { food: "rich", ...defaults };
+console.log(`search.food:${search.food}`);
+
+// Object spread also has a couple of other surprising limits.
+
+// First, it only includes an objects’ own, enumerable properties.
+// Basically, that means you lose methods when you spread instances of an object.
+
+// Second, the Typescript compiler doesn’t allow spreads of type parameters from generic functions.
+// That feature is expected in future versions of the language.
