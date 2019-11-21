@@ -36,7 +36,58 @@ let tuple: [number, string, boolean] = [7, "hello", true];
 // console.log(`c:${c}`);
 // console.log(`d:${d}`);
 
-let [a] = tuple; // a: number
-let [, b] = tuple; // b: string
-console.log(`a:${a}`);
-console.log(`b:${b}`);
+// let [a] = tuple; // a: number
+// let [, b] = tuple; // b: string
+// console.log(`a:${a}`);
+// console.log(`b:${b}`);
+
+let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+// let { a, b } = o;
+// ({ a, b } = { a: "baz", b: 101 });
+// console.log(`a:${a}`);
+// console.log(`b:${b}`);
+
+// let { a, ...passthrough } = o;
+// let total = passthrough.b + passthrough.c.length;
+// console.log(`a:${a}`);
+// console.log(`total:${total}`);
+
+// Property renaming
+// let { a: newName1, b: newName2 } = o;
+// console.log(`newName1:${newName1}`);
+// console.log(`newName2:${newName2}`);
+// newName1 = 'hoge';
+// console.log(`o.a:${o.a}`);
+
+// let { a, b }: { a: string, b: number } = o;
+// console.log(`a:${a}`);
+// console.log(`a:${b}`);
+
+// Default values
+function keepWholeObject(wholeObject: { a: string, b?: number }) {
+    let { a, b = 1001 } = wholeObject;
+    console.log(`a:${a}`);
+    console.log(`b:${b}`);
+}
+
+// keepWholeObject({a: 'hoge'});
+keepWholeObject({a: 'hoge', b: 200});
+
+function ff({ a="", b=0 } = {}): void {
+    // ...
+    console.log(`a:${a}`);
+    console.log(`b:${b}`);
+}
+// ff();
+ff({a: 'hoge', b: 100});
+
+function fff({ a, b = 0 } = { a: "" }): void {
+    // ...
+}
+fff({ a: "yes" }); // ok, default b = 0
+fff(); // ok, default to { a: "" }, which then defaults b = 0
+// fff({}); // error, 'a' is required if you supply an argument
